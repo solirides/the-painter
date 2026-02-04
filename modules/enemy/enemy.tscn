@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://di5pt5bbntemp"]
+
+[ext_resource type="Script" uid="uid://cxu3rgq0wmvnu" path="res://modules/enemy/enemy.gd" id="1_4cjfe"]
+[ext_resource type="PackedScene" uid="uid://66dtdfcgitbs" path="res://modules/eye/enemy_eye.tscn" id="2_gfmy3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4cjfe"]
+friction = 0.0
+
+[sub_resource type="Curve" id="Curve_gfmy3"]
+_limits = [0.0, 1.0, 0.0, 10.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1.7469879, 1), 0.0, -0.41316947, 0, 0, Vector2(6.164658, 0), -0.07312653, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4cjfe"]
+height = 1.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfmy3"]
+albedo_color = Color(0.8049109, 0.57380784, 0.054428056, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jw7lh"]
+height = 1.7
+
+[node name="Enemy" type="RigidBody3D" unique_id=371355605 node_paths=PackedStringArray("raycast", "eyes") groups=["enemy"]]
+collision_layer = 4
+collision_mask = 3
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 30.0
+physics_material_override = SubResource("PhysicsMaterial_4cjfe")
+script = ExtResource("1_4cjfe")
+damage_curve = SubResource("Curve_gfmy3")
+raycast = NodePath("RayCast3D")
+eyes = [NodePath("Head/EnemyEye")]
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=877348817]
+enabled = false
+target_position = Vector3(0, 0, -10)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1863613017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+layers = 2
+mesh = SubResource("CapsuleMesh_4cjfe")
+surface_material_override/0 = SubResource("StandardMaterial3D_gfmy3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=967948161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+shape = SubResource("CapsuleShape3D_jw7lh")
+
+[node name="Head" type="Node3D" parent="." unique_id=1036245952]
+
+[node name="EnemyEye" parent="Head" unique_id=1059320285 instance=ExtResource("2_gfmy3")]
+transform = Transform3D(0.29, 0, 0, 0, 0.29, 0, 0, 0, 0.29, 0, 0, -0.5005748)
+
+[connection signal="eye_damaged" from="Head/EnemyEye" to="." method="_on_eye_damaged"]

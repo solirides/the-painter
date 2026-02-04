@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://dbrr06dxvktp"]
+
+[ext_resource type="PackedScene" uid="uid://m8gydod73rj2" path="res://modules/player.tscn" id="1_ryjsw"]
+[ext_resource type="Texture2D" uid="uid://bnjnqm23outkr" path="res://assets/textures/Vector/texture_04.svg" id="2_pcu7d"]
+[ext_resource type="Texture2D" uid="uid://bdbb4xmb1risf" path="res://icon.svg" id="3_l6grw"]
+[ext_resource type="PackedScene" uid="uid://66dtdfcgitbs" path="res://modules/eye/enemy_eye.tscn" id="4_3dx25"]
+[ext_resource type="PackedScene" uid="uid://di5pt5bbntemp" path="res://modules/enemy/enemy.tscn" id="6_kri1i"]
+[ext_resource type="Shader" uid="uid://ckaa8cjwapoa4" path="res://assets/shaders/paint_slash.gdshader" id="7_5qbqa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ryjsw"]
+sky_top_color = Color(0.621162, 0.6478488, 0.7047335, 1)
+sky_horizon_color = Color(0.62378114, 0.6873688, 0.7940533, 1)
+ground_bottom_color = Color(0.1183015, 0.09682839, 0.07266381, 1)
+ground_horizon_color = Color(0.48732114, 0.5641012, 0.66097665, 1)
+
+[sub_resource type="Sky" id="Sky_pcu7d"]
+sky_material = SubResource("ProceduralSkyMaterial_ryjsw")
+
+[sub_resource type="Environment" id="Environment_l6grw"]
+background_mode = 2
+sky = SubResource("Sky_pcu7d")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.009
+volumetric_fog_albedo = Color(0.71738833, 0.77920145, 0.90055007, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6grw"]
+albedo_texture = ExtResource("2_pcu7d")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_pcu7d"]
+size = Vector3(12, 3, 4)
+
+[sub_resource type="PrismMesh" id="PrismMesh_l6grw"]
+size = Vector3(12, 2, 4)
+
+[sub_resource type="Curve3D" id="Curve3D_nuoa6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.58, -1.21, 1.415, 0, 0, 0, 2.52, 0.82, 0.82, 6.335, -1.85, 2.34, 0, 0, 0, 0.975, 1.93, -4.475),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gi1h7"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_gi1h7"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jjnc2"]
+gradient = SubResource("Gradient_gi1h7")
+
+[sub_resource type="Gradient" id="Gradient_8mr64"]
+colors = PackedColorArray(0, 0, 0, 1, 0.9375, 0.9375, 0.9375, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_utrvu"]
+gradient = SubResource("Gradient_8mr64")
+
+[sub_resource type="Gradient" id="Gradient_5qbqa"]
+offsets = PackedFloat32Array(0, 0.5375, 0.64375, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0740898, 0.0740898, 0.0740898, 1, 0.20625, 0.20625, 0.20625, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gi1h7"]
+gradient = SubResource("Gradient_5qbqa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yh20h"]
+render_priority = 0
+shader = ExtResource("7_5qbqa")
+shader_parameter/pixelScale = 256.0
+shader_parameter/minWidth = -0.05000001005839999
+shader_parameter/maxWidth = 0.0999999977648
+shader_parameter/maxRandomness = 0.06999999843536
+shader_parameter/visibleLength = 0.999999977648
+shader_parameter/thicknessGradient = SubResource("GradientTexture1D_utrvu")
+shader_parameter/trimGradient = SubResource("GradientTexture1D_gi1h7")
+shader_parameter/color = SubResource("GradientTexture1D_jjnc2")
+shader_parameter/dither = 0.77999998256544
+shader_parameter/animFPS = 8.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uf0dc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ci1tm"]
+render_priority = 0
+shader = ExtResource("7_5qbqa")
+shader_parameter/pixelScale = 32.0
+shader_parameter/minWidth = 0.1
+shader_parameter/maxWidth = 0.5
+shader_parameter/maxRandomness = 0.05
+shader_parameter/visibleLength = 1.0
+shader_parameter/dither = 0.0
+shader_parameter/animFPS = 8.0
+
+[sub_resource type="Gradient" id="Gradient_fme2p"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0p782"]
+gradient = SubResource("Gradient_fme2p")
+
+[node name="Testing" type="Node3D" unique_id=1155271629]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=12144234]
+environment = SubResource("Environment_l6grw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1486913024]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=499699460 instance=ExtResource("1_ryjsw")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1229023777]
+material_override = SubResource("StandardMaterial3D_l6grw")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1310671542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+size = Vector3(80, 4, 80)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=458091054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, -5)
+mesh = SubResource("PrismMesh_pcu7d")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=1166106453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, -11)
+mesh = SubResource("PrismMesh_l6grw")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=981404384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1, 0)
+size = Vector3(14, 7, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1917517831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 1, -6)
+size = Vector3(1, 7, 13)
+
+[node name="Decal" type="Decal" parent="." unique_id=1833083615]
+transform = Transform3D(0.5281652, 0.8288833, -0.18437445, 0.12980187, -0.29338917, -0.9471401, -0.8391619, 0.47631443, -0.2625486, 17.917007, 0.36065626, -4.072321)
+size = Vector3(5, 30, 5)
+texture_albedo = ExtResource("3_l6grw")
+
+[node name="StaticEye" parent="." unique_id=1059320285 instance=ExtResource("4_3dx25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15)
+
+[node name="StaticEye2" parent="." unique_id=1524037327 instance=ExtResource("4_3dx25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -15)
+
+[node name="Path3D" type="Path3D" parent="." unique_id=783627862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.721499, 0, 2.7330322)
+curve = SubResource("Curve3D_nuoa6")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1187352684]
+transform = Transform3D(-0.83330745, 0.4236358, -0.35515013, 0.25833994, 0.86640435, 0.42732167, 0.48873222, 0.26434085, -0.83142316, 9.659357, 2.7915187, -15.082882)
+light_color = Color(1, 0.90033334, 0.77, 1)
+light_energy = 106.0
+spot_range = 36.89157
+spot_angle = 18.027552
+
+[node name="slash" type="MeshInstance3D" parent="." unique_id=788441526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.631783, -1, 0)
+material_override = SubResource("StandardMaterial3D_gi1h7")
+material_overlay = SubResource("ShaderMaterial_yh20h")
+mesh = SubResource("PlaneMesh_uf0dc")
+
+[node name="slash2" type="MeshInstance3D" parent="." unique_id=1698992504]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 11.631783, -1, 3)
+material_override = SubResource("ShaderMaterial_yh20h")
+mesh = SubResource("PlaneMesh_uf0dc")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=276086118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+material_overlay = SubResource("ShaderMaterial_ci1tm")
+texture = SubResource("GradientTexture2D_0p782")
+
+[node name="Enemy" parent="." unique_id=371355605 instance=ExtResource("6_kri1i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -29.61272)

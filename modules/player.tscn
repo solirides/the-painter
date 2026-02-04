@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://m8gydod73rj2"]
+
+[ext_resource type="Script" uid="uid://bkjeda0rtxeyg" path="res://modules/player/player.gd" id="1_fhf1h"]
+[ext_resource type="PackedScene" uid="uid://w676ugkpfrae" path="res://modules/hud/hud.tscn" id="2_a5pop"]
+[ext_resource type="PackedScene" uid="uid://cqp5awmvp5l8e" path="res://modules/paintbrush/paintbrush.tscn" id="2_blm1v"]
+[ext_resource type="PackedScene" uid="uid://di5s28k5pqwnk" path="res://modules/charcoal_pencil/charcoal_pencil.tscn" id="3_wyirp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fhf1h"]
+friction = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a5pop"]
+height = 1.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fhf1h"]
+albedo_color = Color(1, 0.32, 0.6713335, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_blm1v"]
+height = 1.7
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wyirp"]
+height = 0.18499756
+
+[sub_resource type="Animation" id="Animation_fhf1h"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraYaw/CameraPitch/CameraLean/Camera3D:v_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_a5pop"]
+resource_name = "walk_bob"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraYaw/CameraPitch/CameraLean/Camera3D:v_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2),
+"points": PackedFloat32Array(0, -0.22744046, 0.2476911, 0.06666667, -0.07260247, -0.09707373, -0.06044913, 0, 0.0923717, 0, 0.14763881, -0.09225053, -0.011287436, 0.23333329, 0.028549805, 0, -0.06666666, 0.09257849, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667, 0.6, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blm1v"]
+_data = {
+&"RESET": SubResource("Animation_fhf1h"),
+&"walk_bob": SubResource("Animation_a5pop")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fhf1h"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a5pop"]
+animation = &"walk_bob"
+advance_on_start = true
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_blm1v"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_wyirp"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_gompl"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_a5pop")
+nodes/Animation/position = Vector2(-416, 336)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_blm1v")
+nodes/Blend2/position = Vector2(32, 112)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_fhf1h")
+"nodes/Animation 2/position" = Vector2(-400, 112)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_wyirp")
+nodes/TimeScale/position = Vector2(-160, 256)
+node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"Animation 2", &"Blend2", 1, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wyirp"]
+top_radius = 0.0
+bottom_radius = 9.154
+height = 6.0
+
+[node name="Player" type="RigidBody3D" unique_id=499699460 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera_lean", "camera", "feet_collision", "raycast", "mobile_raycast", "anim_player", "anim_tree", "hands", "current_hand_item", "hand_items") groups=["player"]]
+collision_layer = 2
+collision_mask = 3
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 80.0
+physics_material_override = SubResource("PhysicsMaterial_fhf1h")
+gravity_scale = 0.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_fhf1h")
+camera_yaw = NodePath("CameraYaw")
+camera_pitch = NodePath("CameraYaw/CameraPitch")
+camera_lean = NodePath("CameraYaw/CameraPitch/CameraLean")
+camera = NodePath("CameraYaw/CameraPitch/CameraLean/Camera3D")
+feet_collision = NodePath("Area3D")
+raycast = NodePath("CameraYaw/CameraPitch/CameraLean/Camera3D/RayCast3D")
+mobile_raycast = NodePath("RayCast3D")
+anim_player = NodePath("AnimationPlayer")
+anim_tree = NodePath("AnimationTree")
+hands = NodePath("CameraYaw/CameraPitch/Hands")
+current_hand_item = NodePath("CameraYaw/CameraPitch/Hands/CharcoalPencil")
+hand_items = [NodePath("CameraYaw/CameraPitch/Hands/CharcoalPencil"), NodePath("CameraYaw/CameraPitch/Hands/Paintbrush")]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=73711573]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=651034334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+layers = 2
+mesh = SubResource("CapsuleMesh_a5pop")
+surface_material_override/0 = SubResource("StandardMaterial3D_fhf1h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1313961727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+shape = SubResource("CapsuleShape3D_blm1v")
+
+[node name="CameraYaw" type="Node3D" parent="." unique_id=1812178088]
+
+[node name="CameraPitch" type="Node3D" parent="CameraYaw" unique_id=1311080824]
+
+[node name="CameraLean" type="Node3D" parent="CameraYaw/CameraPitch" unique_id=539727353]
+
+[node name="Camera3D" type="Camera3D" parent="CameraYaw/CameraPitch/CameraLean" unique_id=1580632864]
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraYaw/CameraPitch/CameraLean/Camera3D" unique_id=1807054466]
+target_position = Vector3(0, 0, -8)
+collision_mask = 13
+
+[node name="Hands" type="Node3D" parent="CameraYaw/CameraPitch" unique_id=666648367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7612564)
+
+[node name="Paintbrush" parent="CameraYaw/CameraPitch/Hands" unique_id=310999731 node_paths=PackedStringArray("player") instance=ExtResource("2_blm1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3009354, 0)
+player = NodePath("../../../..")
+
+[node name="CharcoalPencil" parent="CameraYaw/CameraPitch/Hands" unique_id=261455024 instance=ExtResource("3_wyirp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2540996, -0.30054957, 0)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1777153002]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=945311928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4502168, 0)
+shape = SubResource("CylinderShape3D_wyirp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=396222320]
+libraries/ = SubResource("AnimationLibrary_blm1v")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1045091788]
+tree_root = SubResource("AnimationNodeBlendTree_gompl")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Blend2/blend_amount = 0.18
+parameters/TimeScale/scale = 1.0
+
+[node name="Hud" parent="." unique_id=1940409460 node_paths=PackedStringArray("player") instance=ExtResource("2_a5pop")]
+player = NodePath("..")
+
+[node name="ViewCone" type="Area3D" parent="." unique_id=982917640]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewCone" unique_id=763497887]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ViewCone" unique_id=613480295]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -3)
+mesh = SubResource("CylinderMesh_wyirp")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1383248105]
+enabled = false
+target_position = Vector3(0, 0, -8)
+collision_mask = 13

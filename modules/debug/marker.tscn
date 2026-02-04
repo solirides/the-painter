@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://78fqxvc5f7xf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj1nu"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_gxtin"]
+
+[node name="Marker" type="MeshInstance3D" unique_id=763055640]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_aj1nu")
+mesh = SubResource("SphereMesh_gxtin")

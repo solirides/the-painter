@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://di5s28k5pqwnk"]
+
+[ext_resource type="Script" uid="uid://1dmrcbr0lsl5" path="res://modules/charcoal_pencil/charcoal_pencil.gd" id="1_05eyd"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_nnmca"]
+size = Vector3(0.2, 0.2, 0.4)
+
+[node name="CharcoalPencil" type="Node3D" unique_id=261455024]
+script = ExtResource("1_05eyd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=29505298]
+transform = Transform3D(1, 0, 0, 0, 0.25881907, -0.9659258, 0, 0.9659258, 0.25881907, 0, 0, 0)
+layers = 2
+mesh = SubResource("PrismMesh_nnmca")
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=65904761]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_cooldown_timeout"]
