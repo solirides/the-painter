@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://bee5xk2y3h3sb"]
 
+[ext_resource type="Script" uid="uid://ct52u8o7rtuyn" path="res://modules/menu/main_menu.gd" id="1_6s0ul"]
+[ext_resource type="Theme" uid="uid://e5x3p6nug38q" path="res://assets/materials/gui_theme.tres" id="2_cvkr5"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_b3f0m"]
 font_size = 60
 
@@ -10,6 +13,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6s0ul")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=861771318]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08718056, 0.12609556, 0.16351992, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1456400219]
 layout_mode = 1
@@ -23,15 +36,18 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=239565830]
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=239565830]
 layout_mode = 2
 text = "this is some text"
 label_settings = SubResource("LabelSettings_b3f0m")
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=684897448]
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=684897448]
 custom_minimum_size = Vector2(400, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "this is a button"
+theme = ExtResource("2_cvkr5")
+text = "Start"
+
+[connection signal="button_down" from="VBoxContainer/Start" to="." method="_on_start_button_down"]

@@ -123,7 +123,7 @@ func _physics_process(delta: float) -> void:
 			var cutoff = eye.radius * eye.scale.x / (spatial_distance * 2*sin(player.fov / 2.0)) * get_viewport().get_visible_rect().size.y
 			#print(str(screen_distance) + " " + str(cutoff))
 			if screen_distance <= hit_radius + cutoff:
-				print("potential target hit")
+				#print("potential target hit")
 				potential_targets.append(eye)
 				#eye.damage()
 		
@@ -133,7 +133,7 @@ func _physics_process(delta: float) -> void:
 			# if within distance range
 			if distance >= min_distance and distance <= max_distance:
 				#target.damage()
-				print("within range")
+				#print("within range")
 				player.mobile_raycast.look_at(target.global_position)
 				player.mobile_raycast.force_raycast_update()
 				if player.mobile_raycast.is_colliding():
@@ -157,15 +157,19 @@ func secondary_down(player):
 	if canvas_mode == true:
 		player.camera_mode = player.CameraMode.DAMPED
 		player.speed_multiplier = 0.05
-		print("canvas mode")
+		print("enter canvas mode")
+		var tween = create_tween()
+		tween.tween_property(player.camera, "fov", 50, 0.4).set_ease(Tween.EASE_IN_OUT)
 	elif canvas_mode == false:
 		player.camera_mode = player.CameraMode.STANDARD
 		player.speed_multiplier = 1
 		print("exit canvas mode")
+		var tween = create_tween()
+		tween.tween_property(player.camera, "fov", player.fov, 0.4).set_ease(Tween.EASE_IN_OUT)
 	
 
 func primary_down(player):
-	print("draw")
+	#print("draw")
 	
 	#var array = []
 	var pos = player.camera.project_position(get_viewport().get_visible_rect().size/2, projection_distance)
@@ -213,6 +217,7 @@ func equip():
 
 
 func dist(p:Vector2, a:Vector2, b:Vector2):
+	# find the distance between a point and line segment
 	var ab = b - a
 	var ap = p - a
 	var result = 0

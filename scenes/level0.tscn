@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://pampopdc4fuj"]
+
+[ext_resource type="Texture2D" uid="uid://bnjnqm23outkr" path="res://assets/textures/Vector/texture_04.svg" id="1_4exd7"]
+[ext_resource type="PackedScene" uid="uid://m8gydod73rj2" path="res://modules/player.tscn" id="2_ic6my"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic6my"]
+albedo_texture = ExtResource("1_4exd7")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic6my"]
+sky_top_color = Color(0.621162, 0.6478488, 0.7047335, 1)
+sky_horizon_color = Color(0.62378114, 0.6873688, 0.7940533, 1)
+ground_bottom_color = Color(0.1183015, 0.09682839, 0.07266381, 1)
+ground_horizon_color = Color(0.48732114, 0.5641012, 0.66097665, 1)
+
+[sub_resource type="Sky" id="Sky_pcu7d"]
+sky_material = SubResource("ProceduralSkyMaterial_ic6my")
+
+[sub_resource type="Environment" id="Environment_qsrgx"]
+background_mode = 2
+sky = SubResource("Sky_pcu7d")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.009
+volumetric_fog_albedo = Color(0.71738833, 0.77920145, 0.90055007, 1)
+
+[node name="Level0" type="Node3D" unique_id=1888763726]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=705732930]
+material_override = SubResource("StandardMaterial3D_ic6my")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=243090553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+size = Vector3(80, 4, 80)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=31648693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+size = Vector3(80, 4, 80)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1578429133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, 4.5)
+size = Vector3(1, 7, 28)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D" unique_id=381254072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -1)
+size = Vector3(1, 7, 17)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D" unique_id=682562249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 11)
+size = Vector3(1, 7, 17)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D" unique_id=66347769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, -4)
+size = Vector3(1, 7, 47)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D" unique_id=667731756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, -4)
+size = Vector3(1, 7, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D" unique_id=169566990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, -9.999001)
+size = Vector3(16, 7, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D" unique_id=747550777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -13.999001)
+size = Vector3(27, 7, 1)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1815929578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1, -17.999)
+size = Vector3(26, 7, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D" unique_id=83895083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, 11.000999)
+size = Vector3(16, 7, 1)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2036387929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, 18.001)
+size = Vector3(22, 7, 1)
+
+[node name="Player" parent="." unique_id=499699460 instance=ExtResource("2_ic6my")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=436275540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.810107, 2.939943, -6.008116)
+light_color = Color(0.6368828, 0.8220899, 0.94695324, 1)
+light_energy = 6.543
+omni_range = 15.223
+omni_attenuation = 2.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1629766850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.354579, 2.939943, -9.571871)
+light_color = Color(0.6368828, 0.8220899, 0.94695324, 1)
+light_energy = 9.506
+omni_range = 27.448
+omni_attenuation = 2.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=982369484]
+environment = SubResource("Environment_qsrgx")
